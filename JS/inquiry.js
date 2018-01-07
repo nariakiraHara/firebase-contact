@@ -21,7 +21,7 @@ function inquiryProcessing(strContent) {
     return bsend;
 }
 
-    
+
 function callbackFunction(strContent) {
     var mimeData = ["To: nariakra@gmail.com",
         "Subject: =?utf-8?B?" + window.btoa(unescape(encodeURIComponent("お取合せフォームからのメッセージ"))) + "?=",

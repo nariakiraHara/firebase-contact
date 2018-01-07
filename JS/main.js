@@ -34,13 +34,13 @@ function sendMessage() {
     }
 
     function writeUserData(bSend) {
-        firebase.database().ref('contact/').set({
-            username: strUserName,
-            email: strEmail,
-            message: strContent,
-            userid: strUserId,
-            sendFlag: bSend
-        });
+      firebase.database().ref('contact/').set({
+        username: strUserName,
+        email: strEmail,
+        message: strContent,
+        userid: strUserId,
+        sendFlag: bSend
+      });
     }
 }
 
