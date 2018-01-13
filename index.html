@@ -40,7 +40,7 @@
         <div id="eMail"></div><br>
         お問い合わせ内容<br>
         <textarea  id="content" cols="50" rows="10"></textarea><br><br>
-        <button class="btn btn-primary" onclick="sendMessage()">送信</button>
+        <button class="btn btn-primary" onclick="sendMessage(userInfo)">送信</button>
       </div>
 </body>
 </html>
@@ -56,12 +56,13 @@
     storageBucket: "",
     messagingSenderId: "708484824182"
   };
-  var userInfo;
+  
   firebase.initializeApp(config);
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       // User is signed in.
-      init(user);
+      const userInfo = init(user);
+      setUser(userInfo);
     } else {
       var provider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithRedirect(provider);
@@ -69,7 +70,6 @@
     }
   });
 </script>
-<script src="JS/inquiry.js"></script>
 <script src="JS/main.js"></script>
 <script src="https://apis.google.com/js/client.js?onload=onLoadCallbackFunction"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
