@@ -1,24 +1,26 @@
 
 // DOMの操作
-var strDisName = document.getElementById('name');
-var strEmail = document.getElementById('eMail');
+let strDisName = document.getElementById('name');
+let strEmail = document.getElementById('eMail');
 
 // 初期化
-var strAddress = "";
-var strUserName = "";
-var strUserId = "";
 function init(user) {
-    strUserId = user.uid
-    strAddress = user.email;
-    strUserName = user.displayName;
-    strEmail.innerHTML = user.email;
-    strDisName.innerHTML = user.displayName;
+    return userInfo = {
+        userid: user.uid,
+        userName: user.displayName,
+        email: user.email
+    };
+}
+
+function setUser(userInfo) {
+    strEmail.innerHTML = userInfo.email;
+    strDisName.innerHTML = userInfo.userName;
 }
 
 // 送信ボタン押下時の処理
-function sendMessage() {
+function sendMessage(userInfo) {
     // textareaのメッセージを取得
-    var strContent = document.getElementById('content').value;
+    let strContent = document.getElementById('content').value;
 
     console.log(strContent);
     if (strContent == "" || strContent == null) {
@@ -28,19 +30,17 @@ function sendMessage() {
 
     if (confirm("メッセージを送信してよろしいですか？")) {
         // メールに記載したい情報
-        var IsSendComp = inquiryProcessing(strContent);
-        writeUserData(IsSendComp);
+        writeUserData(userInfo);
     } else {
         return
     }
 
-    function writeUserData(bSend) {
-      firebase.database().ref('contact/').set({
-        username: strUserName,
-        email: strEmail,
+    function writeUserData(userInfo) {
+      firebase.database().ref('contact/').push({
+        username: userInfo.userName,
+        email: userInfo.email,
         message: strContent,
-        userid: strUserId,
-        sendFlag: bSend
+        userid: userInfo.userid
       });
     }
 }
